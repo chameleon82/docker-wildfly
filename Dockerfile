@@ -1,6 +1,6 @@
 FROM jboss/wildfly
 
-COPY docker_files/ojdbc7.jar /var/tmp
+COPY ojdbc7.jar /var/tmp
 
 RUN /opt/jboss/wildfly/bin/jboss-cli.sh --command="module add --name=com.oracle.jdbc --resources=/var/tmp/ojdbc7.jar --dependencies=javax.api,javax.transaction.api" && \
     /opt/jboss/wildfly/bin/jboss-cli.sh --commands=embed-server,/subsystem=datasources/jdbc-driver=oracle:add\(driver-name=ojbdc7,driver-module-name=com.oracle.jdbc,driver-xa-datasource-class-name=oracle.jdbc.xa.client.OracleXADataSource\),stop-embedded-server && \
